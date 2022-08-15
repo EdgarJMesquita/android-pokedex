@@ -3,6 +3,7 @@ package com.example.pokedex
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.pokedex.api.PokemonRepository
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -10,25 +11,38 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        rvPokemonsList.layoutManager = LinearLayoutManager(this)
+        Thread(Runnable {
+            loadPokemons()
+        }).start()
+    }
 
-        val type = PokemonType("Fogo", "fogo")
+    fun loadPokemons() {
+        val pokemonApiResult = PokemonRepository.listPokemons()
 
-        val charmander = Pokemon(
-            4,
-            "Charmander",
-            "https://assets.pokemon.com/assets/cms2/img/pokedex/full/004.png",
-            listOf<PokemonType>(type)
-        )
-        val squirtle = Pokemon(
-             7,
-            "Squirtle",
-            "https://assets.pokemon.com/assets/cms2/img/pokedex/full/007.png",
-            listOf<PokemonType>(type)
-        )
+        pokemonApiResult?.results?.let {
+            val pokemons: List<Pokemon?> = it.map {pokemon->
+                val id = pokemon.url.replace("https://pokeapi.co/api/v2/pokemon/","").replace("/","");
+
+                val pokemonApiResult = PokemonRepository.getPokemon(id.toInt());
+
+                pokemonApiResult?.let {
+                    Pokemon(
+                        pokemonApiResult.id,
+                        pokemonApiResult.name,
+                        pokemonApiResult.types.map {type->
+                           type.type
+                        }
+                    )
+                }
+            }
 
 
-        rvPokemonsList.adapter = PokemonListAdapter(listOf(charmander,squirtle))
+
+            rvPokemonsList.post {
+                rvPokemonsList.layoutManager = LinearLayoutManager(this)
+                rvPokemonsList.adapter = PokemonListAdapter(pokemons)
+            }
+        };
 
     }
 }
