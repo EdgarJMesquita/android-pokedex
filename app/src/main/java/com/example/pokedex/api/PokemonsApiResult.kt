@@ -1,7 +1,5 @@
 package com.example.pokedex.api
 
-import com.example.pokedex.Pokemon
-
 data class PokemonsApiResult(
     val count: Int,
     val preview: String?,
@@ -13,7 +11,6 @@ class PokemonResult (
     val name: String,
     val url: String
 )
-
 
 data class PokemonApiResult(
     val id: Int,

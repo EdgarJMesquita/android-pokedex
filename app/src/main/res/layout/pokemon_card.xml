@@ -14,14 +14,14 @@
     android:padding="10dp"
     android:background="@color/white"
     >
+
     <ImageView
         android:id="@+id/imgPokemon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/mismagius"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="8dp"
         android:contentDescription="Pokemon Image"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -62,10 +62,9 @@
             android:layout_marginRight="2dp"
             android:background="@drawable/round_corner"
             android:backgroundTint="@color/ghost"
-            android:text="Ghost"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
-            android:textSize="12sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
@@ -75,10 +74,9 @@
             android:layout_marginLeft="2dp"
             android:background="@drawable/round_corner"
             android:backgroundTint="@color/dark"
-            android:text="Dark"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
-            android:textSize="12sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

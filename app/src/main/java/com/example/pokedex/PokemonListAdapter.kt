@@ -15,11 +15,12 @@ class PokemonListAdapter(
         fun bindView(item: Pokemon?, holder: ViewHolder){
             item?.let {
                 holder.itemView.apply {
+                    Glide.with(itemView.context).load(it.imageURL).into(imgPokemon)
                     tvNumber.text = "N° ${item.formattedNumber}"
-                    tvName.text = item.name
-                    tvType1.text = item.types[0].name
+                    tvName.text = item.name.capitalize()
+                    tvType1.text = item.types[0].name.capitalize()
                     if (item.types.size > 1) {
-                        tvType2.text = item.types[1].name
+                        tvType2.text = item.types[1].name.capitalize()
                         tvType2.visibility = View.VISIBLE
                     } else {
                         tvType2.visibility = View.GONE
